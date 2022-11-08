@@ -164,6 +164,13 @@ function fan_design_update_post_meta($post_id){
     foreach ($product_meta as $value){
         $product_id = $value['fanclubs_product'];
 
+        //set product type to variable
+        // $product = wc_get_product($product_id);
+        // $product->set_type('variable');
+        // $product->save();
+
+        // wp_set_object_terms( $product_id, 'variable', 'product_type' );
+
         // Set product attribute for specific product
         $design_attributes = [
             'pa_design' => [
