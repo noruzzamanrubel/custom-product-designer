@@ -22,15 +22,30 @@
  */
 class Custom_Product_Designer_Deactivator {
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function deactivate() {
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function deactivate() {
 
-	}
+        //delete request quote table from woocommerce folder
+        $woo_request_quote_table = get_template_directory() . "/woocommerce/request-quote-table.php";
+
+        if ( file_exists( $woo_request_quote_table ) ) {
+            unlink( $woo_request_quote_table );
+        }
+
+        //delete single-fanclubs-design.php from theme folder
+        $single_directory   = get_template_directory() . "/";
+        $single_design_file = $single_directory . "single-fanclubs-design.php";
+
+        if ( file_exists( $single_design_file ) ) {
+            unlink( $single_design_file );
+        }
+
+    }
 
 }
