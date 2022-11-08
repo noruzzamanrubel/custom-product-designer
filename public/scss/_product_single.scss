@@ -1,0 +1,25 @@
+.single-product {
+  .woocommerce-product-gallery__wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+}
+
+.single-product {
+  //display: none !important;
+
+  .variations_form.cart {
+    display: none !important;
+  }
+}
+.woocommerce {
+  div{
+    &.product {
+      .woocommerce-product-gallery {
+        .zoomImg {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
