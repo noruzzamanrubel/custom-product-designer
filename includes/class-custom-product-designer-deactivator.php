@@ -39,8 +39,7 @@ class Custom_Product_Designer_Deactivator {
         }
 
         //delete single-fanclubs-design.php from theme folder
-        $single_directory   = get_template_directory() . "/";
-        $single_design_file = $single_directory . "single-fanclubs-design.php";
+        $single_design_file = get_template_directory(). "/single-fanclubs-design.php";
 
         if ( file_exists( $single_design_file ) ) {
             unlink( $single_design_file );
