@@ -7,17 +7,19 @@
                     grid-template-columns: 1fr 1fr;
                     grid-gap: 20px;
                     border-bottom: 1px solid #e5e5e5;
-                    padding-bottom: 10px;
+                    padding-bottom: 25px;
 
                     .fan_product_thumb {}
 
                     .fan_product_details {
                         .fan_product_title {
                             border-bottom: 1px solid #e5e5e5;
+                            margin-bottom: 20px;
                         }
 
                         .fan_product_description {
                             border-bottom: 1px solid #e5e5e5;
+                            padding-bottom: 20px;
                         }
                     }
                 }

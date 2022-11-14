@@ -33,16 +33,24 @@ class Custom_Product_Designer_Deactivator {
 
         //delete request quote table from woocommerce folder
         $woo_request_quote_table = get_template_directory() . "/woocommerce/request-quote-table.php";
+        $single_related_product = get_template_directory() . "/woocommerce/single-product/related.php";
 
         if ( file_exists( $woo_request_quote_table ) ) {
             unlink( $woo_request_quote_table );
         }
+        if ( file_exists( $single_related_product ) ) {
+            unlink( $single_related_product );
+        }
 
         //delete single-fanclubs-design.php from theme folder
         $single_design_file = get_template_directory(). "/single-fanclubs-design.php";
+        $archive_design_file = get_template_directory(). "/archive-fanclubs-design.php";
 
         if ( file_exists( $single_design_file ) ) {
             unlink( $single_design_file );
+        }
+        if ( file_exists( $archive_design_file ) ) {
+            unlink( $archive_design_file );
         }
 
     }

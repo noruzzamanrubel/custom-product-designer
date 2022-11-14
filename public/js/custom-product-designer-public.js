@@ -20,6 +20,7 @@
                 }
             }
         });
+
         if($('.single-product .hasCustomSelect').length > 0){
             $(".single-product .hasCustomSelect").find("option[value="+fan_design.variation_id+"]").attr('selected', 'selected');
         }

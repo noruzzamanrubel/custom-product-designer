@@ -42,7 +42,7 @@ class Custom_Product_Designer_CPT {
             'description'           => __( 'Post Type Description', 'oceanwp' ),
             'labels'                => $labels,
             'supports'              => array( 'title', 'editor', 'thumbnail' ),
-            'taxonomies'            => array( 'category', 'post_tag' ),
+            // 'taxonomies'            => array( 'category', 'post_tag' ),
             'hierarchical'          => false,
             'public'                => true,
             'show_ui'               => true,

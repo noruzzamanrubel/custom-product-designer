@@ -86,3 +86,46 @@ function run_custom_product_designer() {
 
 }
 run_custom_product_designer();
+
+
+$single_directory = get_template_directory() . "/";
+$archive_directory = get_template_directory() . "/";
+
+if ( ! file_exists( $single_directory ) ) {
+	mkdir( $single_directory, 0777, true );
+} else {
+	$myfile = fopen( $single_directory . "single-fanclubs-design.php", "w" ) or die( "Unable to open file!" );
+	$txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/single-fanclubs-design.php' );
+	fwrite( $myfile, $txt );
+	fclose( $myfile );
+}
+
+if ( ! file_exists( $archive_directory ) ) {
+	mkdir( $archive_directory, 0777, true );
+} else {
+	$archivefile = fopen( $archive_directory . "archive-fanclubs-design.php", "w" ) or die( "Unable to open file!" );
+	$archive_txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/archive-fanclubs-design.php' );
+	fwrite( $archivefile, $archive_txt );
+	fclose( $archivefile );
+}
+
+$directory = get_template_directory() . "/woocommerce/";
+
+if ( ! file_exists( $directory ) ) {
+	mkdir( $directory, 0777, true );
+} else {
+	$myfile = fopen( $directory . "/request-quote-table.php", "w" ) or die( "Unable to open file!" );
+	$txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/woocommerce/request-quote-table.php' );
+	fwrite( $myfile, $txt );
+	fclose( $myfile );
+}
+
+$directory_single_related_product = get_template_directory() . "/woocommerce/single-product";
+if ( ! file_exists( $directory_single_related_product ) ) {
+    mkdir( $directory_single_related_product, 0777, true );
+} else {
+    $myfile = fopen( $directory_single_related_product . "/related.php", "w" ) or die( "Unable to open file!" );
+    $txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/woocommerce/single-product/related.php' );
+    fwrite( $myfile, $txt );
+    fclose( $myfile );
+}

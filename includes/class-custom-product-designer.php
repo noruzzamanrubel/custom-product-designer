@@ -128,7 +128,6 @@ class Custom_Product_Designer {
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'libs/fan_custom_functions.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-custom-product-designer-cpt.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-custom-product-designer-meta-box.php';
-        // require_once plugin_dir_path( dirname( __FILE__ ) ) . 'single-fanclubs-design.php';
 
         $this->loader = new Custom_Product_Designer_Loader();
 
