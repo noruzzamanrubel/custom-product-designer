@@ -6,6 +6,9 @@
 }
 
 .single-product {
+  .owp-product-nav-wrap {
+    display: none;
+  }
   //display: none !important;
 
   .variations_form.cart {
@@ -21,5 +24,39 @@
         }
       }
     }
+  }
+}
+.product_lightbox_image {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  img {
+    position: relative;
+    display: inline-block !important;
+  }
+  .single_product_lightbox {
+    position: absolute;
+    top: 11%;
+    left: 45%;
+    display: inline-block;
+    height: auto;
+    img {
+      width: 20%;
+    }
+  }
+}
+
+.custom_design_light_box_wrapper {
+  transform: translate3d(538px, 44px, 0px) scale(1);
+  height: 827px;
+  width: 827px;
+  position: relative;
+}
+.pswp__top-bar {
+  .pswp__button--fs {
+    display: none;
+  }
+  .pswp__button--zoom {
+    display: none;
   }
 }

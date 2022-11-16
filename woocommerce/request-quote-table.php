@@ -342,8 +342,13 @@ $total_tax        = 0;
                                             if ( count( $item_data ) > 0 ) {
                                                 global $wpdb;
                                                 foreach ( $item_data as $data ) {
-                                                    $post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_type= %s", $data['value'], 'fanclubs-design'));
-                                                    $meta = get_post_meta( intval($post), 'fan_clubs', true );
+//                                                    var_dump($data['value']);
+//                                                    $post = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_title = %s AND post_type= %s", $data['value'], 'fanclubs-design'));
+                                                    $args = array("post_type" => "fanclubs-design", "s" => $data['value']);
+                                                    $query = get_posts( $args );
+//                                                    var_dump($query);
+                                                    $post_id = $query[0]->ID;
+                                                    $meta = get_post_meta( intval($post_id), 'fan_clubs', true );
                                                     $fanclubs_upload_img = $meta['fanclubs_upload_img'];
                                                     $fanclubs_design_page = $meta['fanclubs_design_page'];
                                                     $fanclubs_design_page_width = $fanclubs_design_page['fanclubs_design_page_width'];

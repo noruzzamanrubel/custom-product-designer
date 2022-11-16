@@ -13,11 +13,11 @@ class ProductDesignImg {
 
     public function __construct()
     {
-        add_action('woocommerce_product_thumbnails', [$this, 'fan_design_single_product_featured']);
+        add_action('single_product_custom_hook', [$this, 'fan_design_single_product_featured']);
         add_action ('template_redirect', [$this, 'fan_design_redirect_archive_page']);
         add_action( 'init', [$this, 'fan_design_product_cat_to_custom_post_type'] );
         add_shortcode('design_cat_sidebar', [$this, 'fan_design_cat_sidebar']);
-        add_action( 'widgets_init', [$this, 'fan_design_widget_register'] );
+
     }
     //single page
     public function fan_design_single_product_featured(){
@@ -57,7 +57,7 @@ class ProductDesignImg {
                 }
             }
             ?>
-            <img src="<?php echo $this->product_design_img; ?>" style="position: absolute; z-index: 999999; top: <?php echo $this->fanclubs_design_page_top; ?>%; left: <?php echo $this->fanclubs_design_page_left; ?>%; width: <?php echo $this->fanclubs_design_page_width;?>%;">
+            <img class="design_single_image" src="<?php echo $this->product_design_img; ?>" style="position: absolute; z-index: 1000; top: <?php echo $this->fanclubs_design_page_top; ?>%; left: <?php echo $this->fanclubs_design_page_left; ?>%; width: <?php echo $this->fanclubs_design_page_width;?>%;">
             <?php
         }
     }
@@ -74,77 +74,79 @@ class ProductDesignImg {
         register_taxonomy_for_object_type( 'product_cat', 'fanclubs-design' );
     }
     // design cat Sidebar
-    public function fan_design_cat_sidebar(){
+    public function fan_design_cat_sidebar($atts = [], $content = null, $tag = ''){
+        $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+        // override default attributes with user attributes
+        $wporg_atts = shortcode_atts(
+            array(
+                'title' => 'FANCLUB AUSSTATTUNG',
+            ), $atts, $tag
+        );
         ?>
-        <aside id="left-sidebar" class="sidebar-container widget-area sidebar-primary">
-            <div id="left-sidebar-inner" class="clr">
-                <div id="block-10" class="sidebar-box widget_block clr">
-                    <h2><strong>FANCLUB AUSSTATTUNG</strong></h2>
 
-                    <?php
+        <h2><strong><?php echo esc_html__( $wporg_atts['title'] ); ?></strong></h2>
 
-                    $taxonomy     = 'product_cat';
-                    $orderby      = 'menu_order';
-                    $show_count   = 0;
-                    $pad_counts   = 0;
-                    $hierarchical = 1;
-                    $title        = '';
-                    $empty        = 0;
+        <?php
 
-                    $args = array(
-                        'taxonomy'     => $taxonomy,
-                        'orderby'      => $orderby,
-                        'show_count'   => $show_count,
-                        'pad_counts'   => $pad_counts,
-                        'hierarchical' => $hierarchical,
-                        'title_li'     => $title,
-                        'hide_empty'   => $empty,
-                    );
-                    $all_categories = get_categories( $args );
-                    foreach ($all_categories as $cat) {
-                        if($cat->category_parent == 0) {
-                            $category_id = $cat->term_id;
-                            $product_thumb_id = get_woocommerce_term_meta( $category_id, 'thumbnail_id', true );
-                            $product_thumbnail    = wp_get_attachment_url( $product_thumb_id );
-                            ?>
-                            <div class="product_cat_item">
-                                <div id="block-8" class="widget_block clr">
-                                    <ul>
-                                        <li>
-                                            <a class="product_cat_single_item  <?php  if(isset($_GET['cat']) && $_GET['cat'] === $cat->slug) { echo 'active'; } else {echo '';} ?>  " href="<?php echo '?cat='.$cat->slug; ?>">
-                                                <span class="product_cat_image">
-                                                    <img src="<?php echo $product_thumbnail; ?>"/>
-                                                </span>
-                                                <span class="product_cat_name">
-                                                    <?php echo $cat->name; ?>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    }
-                    ?>
+        $taxonomy     = 'product_cat';
+        $orderby      = 'menu_order';
+        $show_count   = 0;
+        $pad_counts   = 0;
+        $hierarchical = 1;
+        $title        = '';
+        $empty        = 0;
+
+        $args = array(
+            'taxonomy'     => $taxonomy,
+            'orderby'      => $orderby,
+            'show_count'   => $show_count,
+            'pad_counts'   => $pad_counts,
+            'hierarchical' => $hierarchical,
+            'title_li'     => $title,
+            'hide_empty'   => $empty,
+        );
+        $all_categories = get_categories( $args );
+        foreach ($all_categories as $cat) {
+            if($cat->category_parent == 0) {
+                $category_id = $cat->term_id;
+                $product_thumb_id = get_woocommerce_term_meta( $category_id, 'thumbnail_id', true );
+                $product_thumbnail    = wp_get_attachment_url( $product_thumb_id );
+                ?>
+                <div class="product_cat_item">
+                    <div id="block-8" class="widget_block clr">
+                        <ul>
+                            <li>
+                                <a class="product_cat_single_item  <?php  if(isset($_GET['cat']) && $_GET['cat'] === $cat->slug) { echo 'active'; } else {echo '';} ?>  " href="<?php echo home_url( '/' ).'fanclubs-design'. '?cat='.$cat->slug; ?>">
+                                    <span class="product_cat_image">
+                                        <img src="<?php echo $product_thumbnail; ?>"/>
+                                    </span>
+                                    <span class="product_cat_name">
+                                        <?php echo $cat->name; ?>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </aside>
+                <?php
+            }
+        }
+        ?>
         <?php
     }
 
     // design widget
-    public function fan_design_widget_register(){
-        register_sidebar( array(
-            'name'          => __( 'Custom Product Design Sidebar'),
-            'id'            => 'custom_design_sidebar',
-            'description'   => __( 'Fan Clabs Design Custom Sidebar'),
-            'before_widget' => '<li id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</li>',
-            'before_title'  => '<h2 class="widgettitle">',
-            'after_title'   => '</h2>',
-        ) );
-    }
+//    public function fan_design_widget_register(){
+//        register_sidebar( array(
+//            'name'          => __( 'Custom Product Design Sidebar'),
+//            'id'            => 'custom_design_sidebar',
+//            'description'   => __( 'Fan Clabs Design Custom Sidebar'),
+//            'before_widget' => '<li id="%1$s" class="widget %2$s">',
+//            'after_widget'  => '</li>',
+//            'before_title'  => '<h2 class="widgettitle">',
+//            'after_title'   => '</h2>',
+//        ) );
+//    }
 }
 new ProductDesignImg();
 
@@ -247,10 +249,17 @@ function fan_design_update_post_meta($post_id){
 
     // Loop over selected products and create variations
     $meta = get_post_meta( $post_id, 'fan_clubs', true );
+
+    if ($meta == '') {
+        return;
+    }
+
     $product_meta = $meta['fanclubs_select_product'];
 
     foreach ($product_meta as $value){
         $product_id = $value['fanclubs_product'];
+        wp_remove_object_terms( $product_id, 'simple', 'product_type' );
+        wp_set_object_terms( $product_id, 'variable', 'product_type', true );
 
         // Set product attribute for specific product
         $design_attributes = [

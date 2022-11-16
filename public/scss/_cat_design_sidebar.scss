@@ -2,38 +2,4 @@
   &.widget-area {
     float: left;
   }
-  #left-sidebar-inner {
-    .sidebar-box {
-      .product_cat_item {
-        ul {
-          li {
-            margin: 6px 0 6px 0;
-            a {
-              font-size: 20px;
-              font-weight: 600;
-              text-transform: uppercase;
-              display: inline-flex;
-              align-items: center;
-              &:focus {
-                outline: none !important;
-              }
-              span {
-                &.product_cat_image {
-                  width: 48px;
-                  height: 48px;
-                  display: block;
-                  margin-right: 10px;
-                }
-              }
-              &.active {
-                border: 1px solid #f5f5f5;
-                padding: 5px;
-                margin-left: -5px;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 }

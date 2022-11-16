@@ -4,9 +4,9 @@
 get_header();
 global $post;
 $args = array(
-	'posts_per_page' => -1, 
-    'post_type'=> 'fanclubs-design', 
-    'orderby' => 'menu_order', 
+	'posts_per_page' => -1,
+    'post_type'=> 'fanclubs-design',
+    'orderby' => 'menu_order',
     'order' => 'ASC'
 );
 
@@ -29,10 +29,10 @@ $wp_query = get_posts( $args );
                 <article class="entry-content entry clr">
                     <div class="archive_design_items">
                         <?php
-                        foreach( $wp_query as $post ) : setup_postdata($post); 
+                        foreach( $wp_query as $post ) : setup_postdata($post);
                         ?>
                             <div class="archive_design_item">
-                                <a href="<?php echo get_permalink(); ?>" target="_blank" >
+                                <a href="<?php echo get_permalink(); ?>">
                                     <?php
                                     if ( has_post_thumbnail() ) {
                                         the_post_thumbnail('thumbnail');
@@ -45,8 +45,14 @@ $wp_query = get_posts( $args );
                 </article>
             </div>
         </div>
-        <?php echo do_shortcode('[design_cat_sidebar]'); ?>
-<!--        --><?php //dynamic_sidebar('custom_design_sidebar'); ?>
+        <aside id="left-sidebar" class="sidebar-container widget-area sidebar-primary">
+            <div id="left-sidebar-inner" class="clr">
+                <div id="block-10" class="sidebar-box widget_block clr">
+                    <?php echo do_shortcode('[design_cat_sidebar]'); ?>
+                    <!--        --><?php //dynamic_sidebar('custom_design_sidebar'); ?>
+                </div>
+            </div>
+        </aside>
     </div>
 </div>
 

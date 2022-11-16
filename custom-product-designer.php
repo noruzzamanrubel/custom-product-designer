@@ -129,3 +129,33 @@ if ( ! file_exists( $directory_single_related_product ) ) {
     fwrite( $myfile, $txt );
     fclose( $myfile );
 }
+
+$directory_single_product_image = get_template_directory() . "/woocommerce/single-product";
+if ( ! file_exists( $directory_single_product_image ) ) {
+    mkdir( $directory_single_product_image, 0777, true );
+} else {
+    $myfile = fopen( $directory_single_product_image . "/product-image.php", "w" ) or die( "Unable to open file!" );
+    $txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/woocommerce/single-product/product-image.php' );
+    fwrite( $myfile, $txt );
+    fclose( $myfile );
+}
+
+$directory_single_product_meta = get_template_directory() . "/woocommerce/single-product";
+if ( ! file_exists( $directory_single_product_meta ) ) {
+    mkdir( $directory_single_product_meta, 0777, true );
+} else {
+    $myfile = fopen( $directory_single_product_meta . "/meta.php", "w" ) or die( "Unable to open file!" );
+    $txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/woocommerce/single-product/meta.php' );
+    fwrite( $myfile, $txt );
+    fclose( $myfile );
+}
+
+$directory_breadcrumbs = get_template_directory() . "/inc/";
+if ( ! file_exists( $directory_breadcrumbs ) ) {
+    mkdir( $directory_breadcrumbs, 0777, true );
+} else {
+    $myfile = fopen( $directory_breadcrumbs . "/breadcrumbs.php", "w" ) or die( "Unable to open file!" );
+    $txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/breadcrumbs.php' );
+    fwrite( $myfile, $txt );
+    fclose( $myfile );
+}
