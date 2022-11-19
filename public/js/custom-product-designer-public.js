@@ -56,6 +56,8 @@
 
             $('.pswp__button--fs').css('display', 'none');
             $('.pswp__button--zoom').css('display', 'none');
+            $('.pswp__button--arrow--left').css('z-index', 99);
+            $('.pswp__button--arrow--right').css('z-index', 99);
         });
 
 
