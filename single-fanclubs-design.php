@@ -55,7 +55,7 @@ get_header(); ?>
                                     $custom_post_id = get_the_ID();
                                     
                                     ?>
-                                    <a href="<?php echo $product->get_permalink().'?d_id='.$custom_post_id; ?>" target="_blank" rel="noopener noreferrer">
+                                    <a href="<?php echo $product->get_permalink().'?d_id='.$custom_post_id; ?>" rel="noopener noreferrer">
                                         <li>
                                             <div style="position: relative; overflow: hidden;">
                                                 <img src="<?php  echo $product_thumb[0]; ?>">

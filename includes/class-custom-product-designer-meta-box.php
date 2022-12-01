@@ -3,6 +3,7 @@
 class Custom_Product_Designer_Meta_Box {
     public function __construct() {
         add_action( 'init', [$this, 'custom_product_designer_meta_box'], 0 );
+        add_action( 'init', [$this, 'custom_product_taxonomies_meta_box'], 0 );
     }
 
     // Register Custom Post Type
@@ -142,6 +143,16 @@ class Custom_Product_Designer_Meta_Box {
                             ),
                         ),
                     ),
+                    array(
+                        'id'         => 'fanclubs_single_product',
+                        'type'       => 'select',
+                        'title'      => esc_html__( 'Select Single Product', 'oceanwp' ),
+                        'options'    => 'posts',
+                        'query_args' => array(
+                            'post_type'   => 'product',
+                            'post_status' => 'any',
+                        ),
+                    ),
                 ),
 
             ) );
@@ -149,6 +160,47 @@ class Custom_Product_Designer_Meta_Box {
 
     }
 
+    public function custom_product_taxonomies_meta_box(){
+
+// Control core classes for avoid errors
+        if( class_exists( 'CSF' ) ) {
+
+            //
+            // Set a unique slug-like ID
+            $prefix = 'my_taxonomy_options';
+
+            //
+            // Create taxonomy options
+            CSF::createTaxonomyOptions( $prefix, array(
+                'taxonomy'  => 'design',
+                'data_type' => 'serialize', // The type of the database save options. `serialize` or `unserialize`
+            ) );
+
+            //
+            // Create a section
+            CSF::createSection( $prefix, array(
+                'fields' => array(
+
+                    array(
+                        'id'    => 'opt-text',
+                        'type'  => 'text',
+                        'title' => 'Text',
+                    ),
+
+                    array(
+                        'id'    => 'opt-textarea',
+                        'type'  => 'textarea',
+                        'title' => 'Textarea',
+                    ),
+
+                )
+            ) );
+
+        }
+
+    }
+
 }
+
 
 new Custom_Product_Designer_Meta_Box();

@@ -15,7 +15,7 @@ class ProductDesignImg {
     {
         add_action('single_product_custom_hook', [$this, 'fan_design_single_product_featured']);
         add_action ('template_redirect', [$this, 'fan_design_redirect_archive_page']);
-        add_action( 'init', [$this, 'fan_design_product_cat_to_custom_post_type'] );
+        add_action( 'plugins_loaded', [$this, 'fan_design_product_cat_to_custom_post_type'] );
         add_shortcode('design_cat_sidebar', [$this, 'fan_design_cat_sidebar']);
 
     }
@@ -71,7 +71,7 @@ class ProductDesignImg {
     }
     //Add WooCommerce Product Categories in Custom Post Type
     public function fan_design_product_cat_to_custom_post_type() {
-        register_taxonomy_for_object_type( 'product_cat', 'fanclubs-design' );
+        register_taxonomy_for_object_type( 'design', 'fanclubs-design' );
     }
     // design cat Sidebar
     public function fan_design_cat_sidebar($atts = [], $content = null, $tag = ''){
@@ -88,7 +88,8 @@ class ProductDesignImg {
 
         <?php
 
-        $taxonomy     = 'product_cat';
+
+        $taxonomy     = 'design';
         $orderby      = 'menu_order';
         $show_count   = 0;
         $pad_counts   = 0;
@@ -105,8 +106,18 @@ class ProductDesignImg {
             'title_li'     => $title,
             'hide_empty'   => $empty,
         );
-        $all_categories = get_categories( $args );
+        $all_categories = get_terms( $args );
         foreach ($all_categories as $cat) {
+//            $term = get_category_by_slug( $cat);
+//            $meta = get_term_meta( $term->term_id, 'my_taxonomy_options', true );
+//            var_dump($meta);
+//
+//            echo $meta['opt-text']; // id of the field
+//            echo $meta['opt-textarea']; // id of the field
+
+
+
+
             if($cat->category_parent == 0) {
                 $category_id = $cat->term_id;
                 $product_thumb_id = get_woocommerce_term_meta( $category_id, 'thumbnail_id', true );
@@ -117,9 +128,15 @@ class ProductDesignImg {
                         <ul>
                             <li>
                                 <a class="product_cat_single_item  <?php  if(isset($_GET['cat']) && $_GET['cat'] === $cat->slug) { echo 'active'; } else {echo '';} ?>  " href="<?php echo home_url( '/' ).'fanclubs-design'. '?cat='.$cat->slug; ?>">
-                                    <span class="product_cat_image">
-                                        <img src="<?php echo $product_thumbnail; ?>"/>
-                                    </span>
+                                    <?php
+                                        if($product_thumbnail){
+                                            ?>
+                                            <span class="product_cat_image">
+                                                <img src="<?php echo $product_thumbnail; ?>"/>
+                                            </span>
+                                            <?php
+                                        }
+                                    ;?>
                                     <span class="product_cat_name">
                                         <?php echo $cat->name; ?>
                                     </span>
@@ -134,19 +151,6 @@ class ProductDesignImg {
         ?>
         <?php
     }
-
-    // design widget
-//    public function fan_design_widget_register(){
-//        register_sidebar( array(
-//            'name'          => __( 'Custom Product Design Sidebar'),
-//            'id'            => 'custom_design_sidebar',
-//            'description'   => __( 'Fan Clabs Design Custom Sidebar'),
-//            'before_widget' => '<li id="%1$s" class="widget %2$s">',
-//            'after_widget'  => '</li>',
-//            'before_title'  => '<h2 class="widgettitle">',
-//            'after_title'   => '</h2>',
-//        ) );
-//    }
 }
 new ProductDesignImg();
 
@@ -429,3 +433,6 @@ function create_product_variation( $product_id, $variation_data ){
 
     $variation->save();
 }
+
+//custom image size
+add_image_size( 'design_thumb', 600, 600, true);

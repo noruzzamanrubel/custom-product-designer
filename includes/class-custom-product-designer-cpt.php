@@ -42,7 +42,7 @@ class Custom_Product_Designer_CPT {
             'description'           => __( 'Post Type Description', 'oceanwp' ),
             'labels'                => $labels,
             'supports'              => array( 'title', 'editor', 'thumbnail' ),
-            // 'taxonomies'            => array( 'category', 'post_tag' ),
+//            'taxonomies'            => array( 'category'),
             'hierarchical'          => false,
             'public'                => true,
             'show_ui'               => true,
@@ -57,6 +57,16 @@ class Custom_Product_Designer_CPT {
             'capability_type'       => 'page',
         );
         register_post_type( 'fanclubs-design', $args );
+
+        register_taxonomy( 'design', 'fanclubs-design', array(
+            'label'        => __( 'Design Categories', 'oceanwp' ),
+            'rewrite'      => array( 'slug' => 'design' ),
+            'hierarchical'      => true,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'supports'          => array( 'thumbnail' ),
+        ) );
 
     }
 

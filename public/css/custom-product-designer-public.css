@@ -38,6 +38,9 @@
         .fanclubs-design-template .container .site-content .fan_product_wrapper .fan_product_bottom_wrapper ul.fan_product_carousel .owl-nav .owl-next span {
           font-size: 30px; }
 
+.fan_product_carousel a:hover {
+  color: #000; }
+
 .single-product .woocommerce-product-gallery__wrapper {
   position: relative;
   overflow: hidden; }
@@ -46,6 +49,8 @@
   display: none; }
 .single-product .variations_form.cart {
   display: none !important; }
+.single-product aside {
+  display: none; }
 
 .woocommerce div.product .woocommerce-product-gallery .zoomImg {
   display: none !important; }
@@ -72,11 +77,6 @@
   width: 827px;
   position: relative; }
 
-.pswp__top-bar .pswp__button--fs {
-  display: none; }
-.pswp__top-bar .pswp__button--zoom {
-  display: none; }
-
 .post-type-archive-fanclubs-design .site-main .page-header {
   display: none; }
 .post-type-archive-fanclubs-design .site-main #content-wrap .archive_design_wrapper .content-area {
@@ -90,7 +90,7 @@
     gap: 20px;
     text-align: center; }
     .post-type-archive-fanclubs-design .site-main #content-wrap .archive_design_wrapper .content-area .archive_design_items .archive_design_item {
-      border: 1px solid #f5f5f5;
+      border: 1px solid #999999;
       padding: 20px; }
       .post-type-archive-fanclubs-design .site-main #content-wrap .archive_design_wrapper .content-area .archive_design_items .archive_design_item a:focus {
         outline: none !important; }
@@ -99,7 +99,7 @@
         height: auto; }
 
 .sidebar-container.widget-area {
-  float: left; }
+  float: left !important; }
 
 .product_cat_item ul li {
   margin: 6px 0 6px 0; }

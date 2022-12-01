@@ -31,22 +31,22 @@ global $product;
 
 	<?php endif; ?>
 
-    <span class="posted_in">
-        Categories
-        <?php
-            foreach((get_the_terms($product->get_id(), 'product_cat' )) as $cat) {
-                ?>
-                 <a href="<?php echo home_url( '/' ).'fanclubs-design'. '?cat='.$cat->slug; ?>"><?php echo $cat->name; ?></a>
-                <?php
-            }
-        ?>
-    </span>
+<!--    <span class="posted_in">-->
+<!--        Categories-->
+<!--        --><?php
+//            foreach((get_the_terms($product->get_id(), 'product_cat' )) as $cat) {
+//                ?>
+<!--                 <a href="--><?php //echo home_url( '/' ).'fanclubs-design'. '?cat='.$cat->slug; ?><!--">--><?php //echo $cat->name; ?><!--</a>-->
+<!--                --><?php
+//            }
+//        ?>
+<!--    </span>-->
 
 
 
-<!--	--><?php //echo wc_get_product_category_list( $product->get_id(), ', ', '<span class="posted_in">' . _n( 'Category :', 'Categories Meta:', count( $product->get_category_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
+	<?php echo wc_get_product_category_list( $product->get_id(), ', ', '<span class="posted_in">' . _n( 'Category :', 'Categories Meta:', count( $product->get_category_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
 
-<!--	--><?php //echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
+	<?php echo wc_get_product_tag_list( $product->get_id(), ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', count( $product->get_tag_ids() ), 'woocommerce' ) . ' ', '</span>' ); ?>
 
 	<?php do_action( 'woocommerce_product_meta_end' ); ?>
 

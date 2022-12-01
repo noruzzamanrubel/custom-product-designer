@@ -14,6 +14,9 @@
   .variations_form.cart {
     display: none !important;
   }
+  aside {
+    display: none;
+  }
 }
 .woocommerce {
   div{
@@ -51,12 +54,4 @@
   height: 827px;
   width: 827px;
   position: relative;
-}
-.pswp__top-bar {
-  .pswp__button--fs {
-    display: none;
-  }
-  .pswp__button--zoom {
-    display: none;
-  }
 }
