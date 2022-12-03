@@ -167,7 +167,7 @@ class Custom_Product_Designer_Meta_Box {
 
             //
             // Set a unique slug-like ID
-            $prefix = 'my_taxonomy_options';
+            $prefix = 'design_taxonomies';
 
             //
             // Create taxonomy options
@@ -180,19 +180,15 @@ class Custom_Product_Designer_Meta_Box {
             // Create a section
             CSF::createSection( $prefix, array(
                 'fields' => array(
-
                     array(
-                        'id'    => 'opt-text',
-                        'type'  => 'text',
-                        'title' => 'Text',
+                        'id'           => 'design_taxonomies_icon',
+                        'type'         => 'upload',
+                        'title'        => 'Upload Icon',
+                        'library'      => 'image',
+                        'placeholder'  => 'http://',
+                        'button_title' => 'Add Image',
+                        'remove_title' => 'Remove Image',
                     ),
-
-                    array(
-                        'id'    => 'opt-textarea',
-                        'type'  => 'textarea',
-                        'title' => 'Textarea',
-                    ),
-
                 )
             ) );
 

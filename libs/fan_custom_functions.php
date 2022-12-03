@@ -129,13 +129,13 @@ class ProductDesignImg {
                             <li>
                                 <a class="product_cat_single_item  <?php  if(isset($_GET['cat']) && $_GET['cat'] === $cat->slug) { echo 'active'; } else {echo '';} ?>  " href="<?php echo home_url( '/' ).'fanclubs-design'. '?cat='.$cat->slug; ?>">
                                     <?php
-                                        if($product_thumbnail){
-                                            ?>
-                                            <span class="product_cat_image">
+                                    if($product_thumbnail){
+                                        ?>
+                                        <span class="product_cat_image">
                                                 <img src="<?php echo $product_thumbnail; ?>"/>
                                             </span>
-                                            <?php
-                                        }
+                                        <?php
+                                    }
                                     ;?>
                                     <span class="product_cat_name">
                                         <?php echo $cat->name; ?>
@@ -170,7 +170,7 @@ function fan_club_admin_order_item_values( $_product, $item, $item_id = null ) {
     $variation_id = $item->get_variation_id();
     $variation = new WC_Product_Variation($variation_id);
     $variationName = ' ' . implode(" - ", $variation->get_variation_attributes());
-   $order_design_meta = get_post_meta($variationName, 'fan_clubs', true);
+    $order_design_meta = get_post_meta($variationName, 'fan_clubs', true);
 
     $fanclubs_upload_img = $order_design_meta['fanclubs_upload_img'];
     $fanclubs_design_page = $order_design_meta['fanclubs_design_page'];
