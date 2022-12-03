@@ -108,16 +108,6 @@ class ProductDesignImg {
         );
         $all_categories = get_terms( $args );
         foreach ($all_categories as $cat) {
-//            $term = get_category_by_slug( $cat);
-//            $meta = get_term_meta( $term->term_id, 'my_taxonomy_options', true );
-//            var_dump($meta);
-//
-//            echo $meta['opt-text']; // id of the field
-//            echo $meta['opt-textarea']; // id of the field
-
-
-
-
             if($cat->category_parent == 0) {
                 $category_id = $cat->term_id;
                 $product_thumb_id = get_woocommerce_term_meta( $category_id, 'thumbnail_id', true );
@@ -129,14 +119,15 @@ class ProductDesignImg {
                             <li>
                                 <a class="product_cat_single_item  <?php  if(isset($_GET['cat']) && $_GET['cat'] === $cat->slug) { echo 'active'; } else {echo '';} ?>  " href="<?php echo home_url( '/' ).'fanclubs-design'. '?cat='.$cat->slug; ?>">
                                     <?php
-                                    if($product_thumbnail){
-                                        ?>
-                                        <span class="product_cat_image">
-                                                <img src="<?php echo $product_thumbnail; ?>"/>
-                                            </span>
-                                        <?php
+                                    $taxonomy_meta = get_term_meta( $cat->term_taxonomy_id, 'design_taxonomies', true );
+                                    if($taxonomy_meta !== '') {
+                                        if($taxonomy_meta["design_taxonomies_icon"] !== ''):
+                                            echo '<span class="product_cat_image">
+                                                    <img src="'.$taxonomy_meta["design_taxonomies_icon"].'"/>
+                                                </span>';
+                                        endif;
                                     }
-                                    ;?>
+                                    ?>
                                     <span class="product_cat_name">
                                         <?php echo $cat->name; ?>
                                     </span>
