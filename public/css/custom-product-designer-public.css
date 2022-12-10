@@ -49,6 +49,10 @@
   display: none; }
 .single-product .variations_form.cart {
   display: none !important; }
+.single-product .content-area {
+  width: 100%;
+  border: none;
+  padding: 0 !important; }
 .single-product aside {
   display: none; }
 

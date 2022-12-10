@@ -235,6 +235,13 @@ function fan_design_update_post_meta($post_id){
         return;
     }
 
+    // Loop over selected products and create variations
+    $meta = get_post_meta( $post_id, 'fan_clubs', true );
+
+    if ($meta === '') {
+        return;
+    }
+
     global $wpdb;
     $result = $wpdb->get_results("SELECT * FROM `wp_fans_woocommerce_attribute_taxonomies` WHERE `attribute_label` LIKE 'Design'");
 
@@ -242,12 +249,20 @@ function fan_design_update_post_meta($post_id){
         createAttribute('Design', 'design');
     }
 
-    // Loop over selected products and create variations
-    $meta = get_post_meta( $post_id, 'fan_clubs', true );
+    $post_title = get_the_title($post_id);
+    $term = get_term_by('slug', $post_id, 'pa_design');
 
-    if ($meta == '') {
-        return;
+    if($term) {
+        update_term_meta($term->term_id, 'name', $post_title);
+        wp_update_term($term->term_id, 'pa_design', array(
+                'name' =>$post_title,
+                'slug' => $post_id
+        ));
+    } else {
+        createTerm($post_title, $post_id, 'design', 0);
     }
+
+    $term_name = get_term_by('slug', $post_id, 'pa_design');
 
     $product_meta = $meta['fanclubs_select_product'];
 
@@ -275,11 +290,8 @@ function fan_design_update_post_meta($post_id){
             add_post_meta($product_id, '_product_attributes', $design_attributes);
         }
 
-        // Create term under attribute
-        $post_title = get_the_title($post_id);
-        createTerm($post_title, $post_id, 'design', 0);
         wp_set_object_terms( $product_id, $post_title, 'pa_design' , true);
-
+//
         $variation_data = array(
             'attributes' => array(
                 'design'  => $post_title,
@@ -287,16 +299,33 @@ function fan_design_update_post_meta($post_id){
             'regular_price' => '01.00',
             'sale_price'    => '00.00',
         );
-        $product_title = get_the_title($product_id);
-        $product_variation_exist = post_exists( $product_title.' - '.$post_title,'','','product_variation');
-        if(!$product_variation_exist) {
-            create_product_variation( $product_id, $variation_data );
-        }
 
+        $product_title = get_the_title($product_id);
+        $product_variation_exist = post_exists( $product_title.' - '.$term_name->name,'','','product_variation');
+
+
+        // Before create new variation to delete old variation
+//        $posts = get_posts(array('post_name' => '1103_742', 'post_type' => 'product_variation'));
+        $design_id_p_id = $post_id.'_'.$product_id;
+        $variation_exist = $wpdb->get_row("SELECT ID FROM wp_fans_posts WHERE post_name = '$design_id_p_id' && post_status = 'publish' && post_type = 'product_variation' ", 'ARRAY_N');
+//        var_dump($variation_exist);
+
+        if($variation_exist === null) {
+            create_product_variation( $product_id, $variation_data, $post_id);
+        } else {
+            $data = array(
+                'ID' => $variation_exist[0],
+                'post_title' => $post_title,
+            );
+
+            wp_update_post( $data );
+        }
     }
+
+//    die();
 }
 
-add_action('save_post', 'fan_design_update_post_meta', 10, 4);
+add_action('save_post', 'fan_design_update_post_meta', 10, 1);
 
 // Create attribute
 function createAttribute(string $attributeName, string $attributeSlug): ?\stdClass {
@@ -356,13 +385,14 @@ function createTerm(string $termName, string $termSlug, string $taxonomy, int $o
 }
 
 // Create variation
-function create_product_variation( $product_id, $variation_data ){
+function create_product_variation( $product_id, $variation_data,$post_id ){
+    global $wpdb;
     // Get the Variable product object (parent)
     $product = wc_get_product($product_id);
 
     $variation_post = array(
         'post_title'  => $product->get_name(),
-        'post_name'   => 'product-'.$product_id.'-variation',
+        'post_name'   => $post_id.'_'.$product_id,
         'post_status' => 'publish',
         'post_parent' => $product_id,
         'post_type'   => 'product_variation',
@@ -395,19 +425,24 @@ function create_product_variation( $product_id, $variation_data ){
         }
 
         // Check if the Term name exist and if not we create it.
-        if( ! term_exists( $term_name, $taxonomy ) )
-            wp_insert_term( $term_name, $taxonomy ); // Create the term
+//        var_dump(! term_exists( $term_name, $taxonomy ));
+//        if( ! term_exists( $term_name, $taxonomy ) )
+//            wp_insert_term( $term_name, $taxonomy ); // Create the term
 
         $term_slug = get_term_by('name', $term_name, $taxonomy )->slug; // Get the term slug
 
         // Get the post Terms names from the parent variable product.
         $post_term_names =  wp_get_post_terms( $product_id, $taxonomy, array('fields' => 'names') );
-
+//        var_dump(in_array( $term_name, $post_term_names ));
+        echo 'After new line'. '</br>';
+        var_dump(! in_array( $term_name, $post_term_names ));
+        echo 'After new line'. '</br>';
+//        var_dump($term_name);
         // Check if the post term exist and if not we set it in the parent variable product.
-        if( ! in_array( $term_name, $post_term_names ) )
+        if( ! in_array( $term_name, $post_term_names ) ) {
             wp_set_post_terms( $product_id, $term_name, $taxonomy, true );
+        }
 
-        // Set/save the attribute data in the product variation
         update_post_meta( $variation_id, 'attribute_'.$taxonomy, $term_slug );
     }
 
@@ -427,3 +462,11 @@ function create_product_variation( $product_id, $variation_data ){
 
 //custom image size
 add_image_size( 'design_thumb', 600, 600, true);
+
+//function fan_pre_post_udpate($post_ID, $data) {
+//    var_dump($post_ID);
+//    var_dump($data);
+//    die();
+//}
+//
+//add_action( 'pre_post_update', 'fan_pre_post_udpate', 10, 2 );
