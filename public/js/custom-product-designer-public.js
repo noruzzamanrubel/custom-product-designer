@@ -74,7 +74,7 @@
             var lightbox_width= $(".pswp__zoom-wrap img").width();
             var lightbox_height = $(".pswp__zoom-wrap img").height();
             $(".custom_design_light_box_wrapper").attr("style", ""+transform+"; height: "+lightbox_height+"px; width: "+lightbox_width+"px");
-        })
+        });
     });
 
 })( jQuery );

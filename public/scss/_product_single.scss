@@ -60,3 +60,20 @@
   width: 827px;
   position: relative;
 }
+
+.posted_in {
+  a {
+    border: none;
+    outline: none !important;
+    &:focus {
+      border: none;
+      outline: none !important;
+    }
+  }
+}
+
+.custom_cart_design  {
+  .attachment-woocommerce_thumbnail {
+    cursor: auto;
+  }
+}

@@ -81,6 +81,16 @@
   width: 827px;
   position: relative; }
 
+.posted_in a {
+  border: none;
+  outline: none !important; }
+  .posted_in a:focus {
+    border: none;
+    outline: none !important; }
+
+.custom_cart_design .attachment-woocommerce_thumbnail {
+  cursor: auto; }
+
 .post-type-archive-fanclubs-design .site-main .page-header {
   display: none; }
 .post-type-archive-fanclubs-design .site-main #content-wrap .archive_design_wrapper .content-area {
