@@ -543,7 +543,7 @@ $total_tax        = 0;
 								<button class="button ywraq_clean_list"> <?php echo apply_filters( 'ywraq_clear_list_label', esc_html__( 'Clear List', 'yith-woocommerce-request-a-quote' ) ); ?> </button>
 							<?php endif; ?>
 							<?php if ( $show_pdf_button ): ?>
-								<button id="ywraq-list-to-pdf" class="button button-ghost" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ywraq-list-to-pdf' ) ); ?>">
+								<button class="button button-ghost" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ywraq-list-to-pdf' ) ); ?>">
 									<?php echo esc_html( get_option( 'ywraq_show_download_pdf_on_request_label', _x( 'PDF', 'Admin option label for button to make a PDF on Request a quote page', 'yith-woocommerce-request-a-quote' ) ) ); ?></button>
 							<?php endif; ?>
 						</div>

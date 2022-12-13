@@ -3,3 +3,23 @@
 @import "archive_design";
 @import "cat_design_sidebar.scss";
 @import "cat_design.scss";
+
+.cart_item {
+  .product-name {
+    a {
+      &:hover {
+        color: #020202;
+      }
+    }
+  }
+}
+
+button{
+  &.button-ghost {
+    display: flex;
+    align-items: center;
+    background: #EDEDED !important;
+    border-color: #D1D1D1 !important;
+    cursor: auto;
+  }
+}

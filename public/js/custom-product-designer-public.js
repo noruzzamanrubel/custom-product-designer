@@ -75,6 +75,12 @@
             var lightbox_height = $(".pswp__zoom-wrap img").height();
             $(".custom_design_light_box_wrapper").attr("style", ""+transform+"; height: "+lightbox_height+"px; width: "+lightbox_width+"px");
         });
+
+        $('.button-ghost').on('click', function(e) {
+            e.preventDefault();
+            $(this).off("click").attr('href', "javascript: void(0);");
+        });
+
     });
 
 })( jQuery );
