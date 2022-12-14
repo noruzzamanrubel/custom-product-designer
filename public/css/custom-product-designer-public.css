@@ -88,8 +88,14 @@
     border: none;
     outline: none !important; }
 
+.custom_cart_design:focus {
+  outline: none !important; }
+.custom_cart_design:hover:focus {
+  outline: none !important; }
+.custom_cart_design a:focus {
+  outline: none !important; }
 .custom_cart_design .attachment-woocommerce_thumbnail {
-  cursor: auto; }
+  cursor: auto !important; }
 
 .post-type-archive-fanclubs-design .site-main .page-header {
   display: none; }
@@ -138,11 +144,12 @@
 .cart_item .product-name a:hover {
   color: #020202; }
 
-button.button-ghost {
-  display: flex;
-  align-items: center;
-  background: #EDEDED !important;
-  border-color: #D1D1D1 !important;
-  cursor: auto; }
+.product-name a {
+  cursor: auto !important;
+  text-decoration: none !important; }
+  .product-name a:focus {
+    outline: none !important; }
+.product-name ul {
+  margin-left: 0 !important; }
 
 /*# sourceMappingURL=custom-product-designer-public.css.map */

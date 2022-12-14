@@ -14,12 +14,15 @@
   }
 }
 
-button{
-  &.button-ghost {
-    display: flex;
-    align-items: center;
-    background: #EDEDED !important;
-    border-color: #D1D1D1 !important;
-    cursor: auto;
+.product-name {
+  a {
+    cursor: auto !important;
+    text-decoration: none !important;
+    &:focus {
+      outline: none !important;
+    }
+  }
+  ul {
+    margin-left: 0 !important;
   }
 }

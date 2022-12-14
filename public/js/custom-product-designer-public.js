@@ -76,7 +76,13 @@
             $(".custom_design_light_box_wrapper").attr("style", ""+transform+"; height: "+lightbox_height+"px; width: "+lightbox_width+"px");
         });
 
+        //link disable
         $('.button-ghost').on('click', function(e) {
+            e.preventDefault();
+            $(this).off("click").attr('href', "javascript: void(0);");
+        });
+
+        $('.cart_item .product-name a').on('click', function(e) {
             e.preventDefault();
             $(this).off("click").attr('href', "javascript: void(0);");
         });

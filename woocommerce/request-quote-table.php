@@ -395,7 +395,7 @@ $total_tax        = 0;
                                                 echo $thumbnail; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             } else {
 //                                                printf( '<a href="%s">%s</a>', esc_url( $_product->get_permalink() ), $thumbnail ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                                                printf( '<a href="">%s</a>', $thumbnail ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+                                                printf( '<a href="#">%s</a>', $thumbnail ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                                             }
                                             ?>
                                         </div>
@@ -417,7 +417,8 @@ $total_tax        = 0;
 										?>
 										<?php echo wp_kses_post( apply_filters( 'ywraq_quote_item_name', $title, $raq, $key ) ); ?>
 									<?php else : ?>
-										<a href="<?php echo esc_url( $_product->get_permalink() ); ?>"><?php echo wp_kses_post( apply_filters( 'ywraq_quote_item_name', $title, $raq, $key ) ); ?></a>
+<!--										<a href="--><?php //echo esc_url( $_product->get_permalink() ); ?><!--">--><?php //echo wp_kses_post( apply_filters( 'ywraq_quote_item_name', $title, $raq, $key ) ); ?><!--</a>-->
+										<a href="#"><?php echo wp_kses_post( apply_filters( 'ywraq_quote_item_name', $title, $raq, $key ) ); ?></a>
 									<?php endif ?>
 
                                     <?php
@@ -535,7 +536,6 @@ $total_tax        = 0;
 				$style                   = $show_clear_list || $show_pdf_button ? 'justify-content:space-between' : 'justify-content:end';
 				$show_update_list_button = get_option( 'ywraq_show_update_list', 'yes' ) === 'yes';
 
-
 				if ( $show_pdf_button || $show_update_list_button || $show_clear_list ) : ?>
 					<div class="update-list-wrapper" style="<?php echo esc_attr( $style ); ?>">
 						<div class="after-table-right">
@@ -543,7 +543,7 @@ $total_tax        = 0;
 								<button class="button ywraq_clean_list"> <?php echo apply_filters( 'ywraq_clear_list_label', esc_html__( 'Clear List', 'yith-woocommerce-request-a-quote' ) ); ?> </button>
 							<?php endif; ?>
 							<?php if ( $show_pdf_button ): ?>
-								<button class="button button-ghost" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ywraq-list-to-pdf' ) ); ?>">
+								<button id="ywraq-list-to-pdf" class="button button-ghost" data-nonce="<?php echo esc_attr( wp_create_nonce( 'ywraq-list-to-pdf' ) ); ?>">
 									<?php echo esc_html( get_option( 'ywraq_show_download_pdf_on_request_label', _x( 'PDF', 'Admin option label for button to make a PDF on Request a quote page', 'yith-woocommerce-request-a-quote' ) ) ); ?></button>
 							<?php endif; ?>
 						</div>

@@ -73,7 +73,20 @@
 }
 
 .custom_cart_design  {
+  &:focus {
+    outline: none !important;
+  }
+  &:hover {
+    &:focus {
+      outline: none !important;
+    }
+  }
+  a {
+    &:focus {
+      outline: none !important;
+    }
+  }
   .attachment-woocommerce_thumbnail {
-    cursor: auto;
+    cursor: auto !important;
   }
 }
