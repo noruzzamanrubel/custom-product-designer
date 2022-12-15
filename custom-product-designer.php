@@ -120,6 +120,15 @@ if ( ! file_exists( $directory ) ) {
 	fclose( $myfile );
 }
 
+if ( ! file_exists( $directory ) ) {
+	mkdir( $directory, 0777, true );
+} else {
+	$myfile = fopen( $directory . "pdf/preview-list/preview-list.php", "w" ) or die( "Unable to open file!" );
+	$txt    = file_get_contents( plugin_dir_path( __FILE__ ) . '/woocommerce/pdf/preview-list/preview-list.php' );
+	fwrite( $myfile, $txt );
+	fclose( $myfile );
+}
+
 $directory_single_related_product = get_template_directory() . "/woocommerce/single-product";
 if ( ! file_exists( $directory_single_related_product ) ) {
     mkdir( $directory_single_related_product, 0777, true );

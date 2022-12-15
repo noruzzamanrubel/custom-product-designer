@@ -33,12 +33,16 @@ class Custom_Product_Designer_Deactivator {
 
         //delete request quote table from woocommerce folder
         $woo_request_quote_table = get_template_directory() . "/woocommerce/request-quote-table.php";
+        $preview_list = get_template_directory() . "/woocommerce/pdf/preview-list/preview-list.php";
         $single_related_product = get_template_directory() . "/woocommerce/single-product/related.php";
         $single_product_image = get_template_directory() . "/woocommerce/single-product/product-image.php";
         $single_product_meta = get_template_directory() . "/woocommerce/single-product/meta.php";
 
         if ( file_exists( $woo_request_quote_table ) ) {
             unlink( $woo_request_quote_table );
+        }
+        if ( file_exists( $preview_list ) ) {
+            unlink( $preview_list );
         }
         if ( file_exists( $single_related_product ) ) {
             unlink( $single_related_product );
